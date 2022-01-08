@@ -1,5 +1,5 @@
 {
-  "name": "wallet",
+  "name": "Wallet",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -13,6 +13,8 @@
   "dependencies": {
     "react": "17.0.2",
     "react-native": "0.66.4",
+    "react-native-elements": "^3.4.2",
+    "react-native-safe-area-context": "^3.3.2",
     "react-native-vector-icons": "^9.0.0"
   },
   "devDependencies": {
