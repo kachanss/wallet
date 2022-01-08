@@ -1,119 +1,105 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * Generated with the TypeScript template
- * https://github.com/react-native-community/react-native-template-typescript
- *
- * @format
- */
-
 import React from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
-
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
 import {SafeAreaProvider} from 'react-native-safe-area-context';
+import {Provider} from 'react-redux';
+import {store} from './app/store';
+import {Text, ThemeProvider} from 'react-native-elements';
+import {TouchableOpacity, View} from 'react-native';
+import {
+  NavigationContainer,
+  useNavigation,
+  useRoute,
+} from '@react-navigation/native';
+import CommonLayout from './app/components/Layout/CommonLayout';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-const Section: React.FC<{
-  title: string;
-}> = ({children, title}) => {
-  const isDarkMode = useColorScheme() === 'dark';
+const MockFooter = () => {
+  const route = useRoute();
+  const navigation = useNavigation();
+
+  const CustButton = ({text, routeName}: any) => {
+    const isActive = routeName === route.name;
+
+    return (
+      <TouchableOpacity
+        onPress={() => navigation.navigate(routeName)}
+        style={{
+          flex: 1,
+          padding: 20,
+          backgroundColor: !isActive ? 'silver' : 'gray',
+          alignContent: 'center',
+          alignItems: 'center',
+          borderRadius: 10,
+          margin: 5,
+        }}>
+        <Text
+          style={{
+            color: !isActive ? 'black' : 'white',
+          }}>
+          {text}
+        </Text>
+      </TouchableOpacity>
+    );
+  };
+
   return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
+    <View
+      style={{
+        flexDirection: 'row',
+        alignContent: 'center',
+        alignItems: 'center',
+      }}>
+      <CustButton bdColor="#aaffff" text="Home" routeName={'Home'} />
+      <CustButton bdColor="#ffaaff" text="Test" routeName={'Test'} />
+      <CustButton bdColor="#ffffaa" text="Settings" routeName={'Settings'} />
     </View>
   );
 };
 
-const App = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
+const Home = () => {
   return (
-    <SafeAreaProvider>
-      <SafeAreaView style={backgroundStyle}>
-        <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={backgroundStyle}>
-          <Header />
-          <View
-            style={{
-              backgroundColor: isDarkMode ? Colors.black : Colors.white,
-            }}>
-            <Section title="Step One">
-              Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-              screen and then come back to see your edits.
-            </Section>
-            <Section title="See Your Changes">
-              <ReloadInstructions />
-            </Section>
-            <Section title="Debug">
-              <DebugInstructions />
-            </Section>
-            <Section title="Learn More">
-              Read the docs to discover what to do next:
-            </Section>
-            <LearnMoreLinks />
-          </View>
-        </ScrollView>
-      </SafeAreaView>
-    </SafeAreaProvider>
+    <CommonLayout footer={<MockFooter />}>
+      <View>
+        <Text>HOME</Text>
+      </View>
+    </CommonLayout>
   );
 };
 
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
+const Settings = () => {
+  return (
+    <CommonLayout footer={<MockFooter />}>
+      <View>
+        <Text>Settings</Text>
+      </View>
+    </CommonLayout>
+  );
+};
 
-export default App;
+const Test = () => {
+  return (
+    <CommonLayout footer={<MockFooter />}>
+      <View>
+        <Text>Test</Text>
+      </View>
+    </CommonLayout>
+  );
+};
+
+const Stack = createNativeStackNavigator();
+
+export default () => (
+  <NavigationContainer>
+    <SafeAreaProvider>
+      <Provider store={store}>
+        <ThemeProvider>
+          <Stack.Navigator
+            screenOptions={{animation: 'none', headerBackVisible: false}}>
+            <Stack.Screen name="Home" component={Home} />
+            <Stack.Screen name="Test" component={Test} />
+            <Stack.Screen name="Settings" component={Settings} />
+          </Stack.Navigator>
+        </ThemeProvider>
+      </Provider>
+    </SafeAreaProvider>
+  </NavigationContainer>
+);
