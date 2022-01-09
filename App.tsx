@@ -1,7 +1,7 @@
 import React from 'react';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {Provider} from 'react-redux';
-import {store} from './app/store';
+import {store} from './app/store/redux';
 import {Text, ThemeProvider} from 'react-native-elements';
 import {FlatList, View} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
