@@ -1,8 +1,11 @@
 import {configureStore} from '@reduxjs/toolkit';
+import systemReducer from '../components/Redux/System/systemSlice';
+import walletsReducer from '../components/Redux/Wallets/walletsSlice';
 
 export const store = configureStore({
   reducer: {
-    mock: state => state || 0,
+    system: systemReducer,
+    wallets: walletsReducer,
   },
 });
 

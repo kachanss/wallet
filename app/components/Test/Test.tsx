@@ -2,14 +2,15 @@ import CommonLayout from '../Layout/CommonLayout';
 import {ScrollView} from 'react-native';
 import {Text} from 'react-native-elements';
 import React, {useEffect, useState} from 'react';
+import {doUpdate} from '../../models/settings';
 
 const Test = () => {
   const [items, setItems] = useState<any[]>([]);
 
   useEffect(() => {
-    setTimeout(() => {
-      setItems(['asd', 'qwe']);
-    }, 3 * 1000);
+    (async () => {
+      await doUpdate();
+    })();
   }, []);
 
   return (
