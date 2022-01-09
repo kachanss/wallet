@@ -8,6 +8,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import CommonLayout from './app/components/Layout/CommonLayout';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Settings from './app/components/Settings/Settings';
+import Test from './app/components/Test/Test';
 
 const Home = () => {
   return (
@@ -21,16 +22,6 @@ const Home = () => {
           </View>
         }
       />
-    </CommonLayout>
-  );
-};
-
-const Test = () => {
-  return (
-    <CommonLayout>
-      <View>
-        <Text>Test</Text>
-      </View>
     </CommonLayout>
   );
 };
