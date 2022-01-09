@@ -1,16 +1,17 @@
 import React from 'react';
-import {SafeAreaView, ScrollView, View} from 'react-native';
+import {SafeAreaView, View} from 'react-native';
+import MainFooter from '../Navigation/MainFooter';
 
 type CommonLayoutProps = {
   children: any;
-  footer?: any;
+  showFooter?: boolean;
 };
 
-const CommonLayout = ({children, footer}: CommonLayoutProps) => {
+const CommonLayout = ({children, showFooter = true}: CommonLayoutProps) => {
   return (
-    <SafeAreaView style={{flex: 1}}>
-      <ScrollView>{children}</ScrollView>
-      {footer ? <View>{footer}</View> : null}
+    <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
+      {children}
+      {showFooter && <MainFooter />}
     </SafeAreaView>
   );
 };
